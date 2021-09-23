@@ -20,6 +20,7 @@ public abstract class Pessoa {
 
 	public Pessoa() {
 		super();
+		addPerfil(Perfil.CLIENTE);//ao menos o perfil cliente existirá
 	}
 
 	public Pessoa(Integer id, String nome, String cpf, String email, String senha) {
@@ -29,6 +30,7 @@ public abstract class Pessoa {
 		this.cpf = cpf;
 		this.email = email;
 		this.senha = senha;
+		addPerfil(Perfil.CLIENTE); //lógica da super classe
 	}
 
 	public Integer getId() {
@@ -75,7 +77,7 @@ public abstract class Pessoa {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void addPerfis(Perfil perfil) {
+	public void addPerfil(Perfil perfil) {
 		this.perfis.add(perfil.getCodigo());
 	}
 
