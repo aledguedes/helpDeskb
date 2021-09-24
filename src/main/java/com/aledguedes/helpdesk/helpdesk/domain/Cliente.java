@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.aledguedes.helpdesk.helpdesk.enuns.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente extends Pessoa {
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Chamado> chamados = new ArrayList<>();
 
