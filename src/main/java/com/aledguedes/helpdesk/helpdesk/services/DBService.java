@@ -26,7 +26,7 @@ public class DBService {
 	private ChamadoRepository cmdRepository;
 
 	public void InstanciaDB() {
-		Tecnico tec1 = new Tecnico(null, "Alexandre Guedes", "	80569379008", "alexandre@guedes.com", "123");
+		Tecnico tec1 = new Tecnico(null, "Alexandre Guedes", "80569379008", "alexandre@guedes.com", "123");
 		tec1.addPerfil(Perfil.ADMIN);
 
 		Cliente cli1 = new Cliente(null, "Linus Turvaldis", "15920688041", "linus@empresa.com", "123");

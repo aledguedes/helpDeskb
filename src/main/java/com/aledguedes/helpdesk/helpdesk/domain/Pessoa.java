@@ -1,5 +1,6 @@
 package com.aledguedes.helpdesk.helpdesk.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,8 +19,10 @@ import com.aledguedes.helpdesk.helpdesk.enuns.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public abstract class Pessoa {
+public abstract class Pessoa implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;

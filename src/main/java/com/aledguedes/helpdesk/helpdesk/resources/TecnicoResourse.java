@@ -1,6 +1,5 @@
 package com.aledguedes.helpdesk.helpdesk.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aledguedes.helpdesk.helpdesk.domain.Tecnico;
+import com.aledguedes.helpdesk.helpdesk.dto.TecnicoDTO;
 import com.aledguedes.helpdesk.helpdesk.services.TecnicoService;
 
 @RestController
@@ -21,8 +21,9 @@ public class TecnicoResourse {
 	private TecnicoService service;
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Tecnico> listById(@PathVariable Integer id) {
-		return ResponseEntity.ok().body(service.listarPorId(id));
+	public ResponseEntity<TecnicoDTO> listById(@PathVariable Integer id) {
+		Tecnico obj = service.listarPorId(id);
+		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 
 	@GetMapping
