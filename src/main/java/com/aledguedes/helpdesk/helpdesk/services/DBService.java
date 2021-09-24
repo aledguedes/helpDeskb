@@ -38,5 +38,16 @@ public class DBService {
 		cliRepository.saveAll(Arrays.asList(cli1));
 		cmdRepository.saveAll(Arrays.asList(ch1));
 
+		Tecnico tec2 = new Tecnico(null, "Joao Prado", "60914291084", "joao@vprado.com", "123");
+		tec1.addPerfil(Perfil.ADMIN);
+
+		Cliente cli2 = new Cliente(null, "Cirilo Prado", "87427014065", "cirilo@eletricista.com", "123");
+
+		Chamado ch2 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado #02", "Primeiro chamado", cli2,
+				tec2);
+
+		tecRepository.saveAll(Arrays.asList(tec2));
+		cliRepository.saveAll(Arrays.asList(cli2));
+		cmdRepository.saveAll(Arrays.asList(ch2));
 	}
 }
