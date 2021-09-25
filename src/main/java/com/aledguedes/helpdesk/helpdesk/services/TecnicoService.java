@@ -3,6 +3,8 @@ package com.aledguedes.helpdesk.helpdesk.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +21,15 @@ public class TecnicoService {
 
 	@Autowired
 	private TecnicoRepository repository;
-	
+
 	@Autowired
 	private PessoaRepository pessoaRepository;
-	
+
 	public Tecnico listarPorId(Integer id) {
 		Optional<Tecnico> obj = repository.findById(id);
-		return obj.orElseThrow(()-> new ObjectnotFoundException("Erro! Objeto não encontrado! ID " + id));
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Erro! Objeto não encontrado! ID " + id));
 	}
-	
+
 	public List<Tecnico> listarTodos() {
 		return repository.findAll();
 	}
@@ -39,18 +41,26 @@ public class TecnicoService {
 		return repository.save(newObj);
 	}
 
-	private void validCpfAndEmail(TecnicoDTO objDTO) {
-		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
-		if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
-			throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
-		}
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+		objDTO.setId(id); // setar o ID que veio do front
+		Tecnico oldObj = listarPorId(id); // chamo a função listar por ID
+		validCpfAndEmail(objDTO);
+		oldObj = new Tecnico(objDTO); // se chegar aqui é pq as excessões dos outros métodps estão ok
 		
-		obj = pessoaRepository.findByEmail(objDTO.getEmail());
-		if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
-			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
-		}
-		
+		return repository.save(oldObj);
 	}
 
-	
+	private void validCpfAndEmail(TecnicoDTO objDTO) {
+		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
+		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+			throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
+		}
+
+		obj = pessoaRepository.findByEmail(objDTO.getEmail());
+		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
+		}
+
+	}
+
 }
