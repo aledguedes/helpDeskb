@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
+
 import com.aledguedes.helpdesk.helpdesk.domain.Tecnico;
 import com.aledguedes.helpdesk.helpdesk.enuns.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -15,9 +17,13 @@ public class TecnicoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected Integer id;
+	@NotNull(message = "Campo NOME é requerido")
 	protected String nome;
+	@NotNull(message = "Campo CPF é requerido")
 	protected String cpf;
+	@NotNull(message = "Campo E-MAIL é requerido")
 	protected String email;
+	@NotNull(message = "Campo SENHA é requerido")
 	protected String senha;
 	protected Set<Integer> perfis = new HashSet<>();
 
@@ -38,6 +44,7 @@ public class TecnicoDTO implements Serializable {
 		this.senha = obj.getSenha();
 		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.dataCriacao = obj.getDataCriacao();
+		addPerfis(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
