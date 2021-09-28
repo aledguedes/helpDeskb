@@ -19,28 +19,28 @@ public class Chamado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataAbertura = LocalDate.now();
-
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataFechamento;
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private Integer id;
 	
-	private Prioridade prioridade;
-	private Status status;
-	private String titulo;
-	private String observacoes;
-
-	@ManyToOne
-	@JoinColumn(name = "tecnico_id")
-	private Tecnico tecnico;
+		@JsonFormat(pattern = "dd/MM/yyyy")
+		private LocalDate dataAbertura = LocalDate.now();
 	
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
+		@JsonFormat(pattern = "dd/MM/yyyy")
+		private LocalDate dataFechamento;
+		
+		private Prioridade prioridade;
+		private Status status;
+		private String titulo;
+		private String observacoes;
+	
+		@ManyToOne
+		@JoinColumn(name = "tecnico_id")
+		private Tecnico tecnico;
+		
+		@ManyToOne
+		@JoinColumn(name = "cliente_id")
+		private Cliente cliente;
 
 	public Chamado() {
 		super();
