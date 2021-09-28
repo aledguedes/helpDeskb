@@ -46,8 +46,17 @@ public class TecnicoService {
 		Tecnico oldObj = listarPorId(id); // chamo a função listar por ID
 		validCpfAndEmail(objDTO);
 		oldObj = new Tecnico(objDTO); // se chegar aqui é pq as excessões dos outros métodps estão ok
-		
+
 		return repository.save(oldObj);
+	}
+
+	public void delete(Integer id) {
+		Tecnico obj = listarPorId(id);
+		
+		if (obj.getChamados().size() > 0) {
+			throw new DataIntegrityViolationException("Técnico possui Ordens e não pode ser deletado!");
+		}
+		repository.deleteById(id);
 	}
 
 	private void validCpfAndEmail(TecnicoDTO objDTO) {
@@ -62,5 +71,4 @@ public class TecnicoService {
 		}
 
 	}
-
 }
