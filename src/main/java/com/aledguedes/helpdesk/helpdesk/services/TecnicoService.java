@@ -53,6 +53,7 @@ public class TecnicoService {
 		if(!objDTO.getSenha().equals(oldObj.getSenha())) {
 			objDTO.setSenha(encoder.encode(objDTO.getSenha()));
 		}
+		
 		validCpfAndEmail(objDTO);
 		oldObj = new Tecnico(objDTO); // se chegar aqui é pq as excessões dos outros métodps estão ok
 

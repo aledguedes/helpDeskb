@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.aledguedes.helpdesk.helpdesk.domain.Pessoa;
@@ -24,6 +25,9 @@ public class ClienteService {
 
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	public Cliente listarPorId(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
@@ -36,6 +40,7 @@ public class ClienteService {
 
 	public Cliente create(ClienteDTO objDTO) {
 		objDTO.setId(null);
+		objDTO.setSenha(encoder.encode(objDTO.getSenha()));
 		validCpfAndEmail(objDTO);
 		Cliente newObj = new Cliente(objDTO);
 		return repository.save(newObj);
@@ -43,7 +48,12 @@ public class ClienteService {
 
 	public Cliente update(Integer id, @Valid ClienteDTO objDTO) {
 		objDTO.setId(id); // setar o ID que veio do front
+		
 		Cliente oldObj = listarPorId(id); // chamo a função listar por ID
+		if(!objDTO.getSenha().equals(oldObj.getSenha())) {
+			objDTO.setSenha(encoder.encode(objDTO.getSenha()));
+		}
+		
 		validCpfAndEmail(objDTO);
 		oldObj = new Cliente(objDTO); // se chegar aqui é pq as excessões dos outros métodps estão ok
 
