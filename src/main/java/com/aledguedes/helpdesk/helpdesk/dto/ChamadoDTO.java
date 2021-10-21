@@ -37,7 +37,7 @@ public class ChamadoDTO implements Serializable{
 	private Integer cliente;
 	
 	private String nomeTecnico;
-	private String nomeCiente;
+	private String nomeCliente;
 
 	public ChamadoDTO() {
 		super();
@@ -56,7 +56,7 @@ public class ChamadoDTO implements Serializable{
 		this.tecnico = obj.getTecnico().getId();
 		this.cliente = obj.getCliente().getId();
 		this.nomeTecnico = obj.getTecnico().getNome();
-		this.nomeCiente = obj.getCliente().getNome();
+		this.nomeCliente = obj.getCliente().getNome();
 	}
 
 	public Integer getId() {
@@ -139,12 +139,12 @@ public class ChamadoDTO implements Serializable{
 		this.nomeTecnico = nomeTecnico;
 	}
 
-	public String getNomeCiente() {
-		return nomeCiente;
+	public String getNomeCliente() {
+		return nomeCliente;
 	}
 
-	public void setNomeCiente(String nomeCiente) {
-		this.nomeCiente = nomeCiente;
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
 	}
 
 }
